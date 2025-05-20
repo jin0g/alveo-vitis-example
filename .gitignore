@@ -1,0 +1,78 @@
+# Vitis/XRT ビルド成果物
+*.xo
+*.xclbin
+*.xclbincat
+*.xclDef
+*.log
+*.jou
+*.str
+*.csv
+*.compile_summary
+*.link_summary
+*.info
+*.ltx
+*_kernels.source
+*.dat
+*.dir
+*_build.*
+*.run_summary
+*_profile_kernels.html
+*_profile_kernels.csv
+*_timeline_kernels.csv
+timeline_trace.csv
+profile_summary.csv
+profile_summary.html
+*.trace_summary
+*_kernels_trace.html
+*_kernels_trace.csv
+*.xo.compile_summary
+*.xo.log
+*.xo.uuid
+*.out
+*.elf
+*.exe
+*.a
+*.so
+*.dll
+
+# Makefileのcleanターゲットで削除されるもの
+*_test_sw
+*_test_hw
+lib*_module_sw.so
+lib*_module_hw.so
+
+# ディレクトリ
+.ipcache/
+.Xil/
+vitis_analyzer*
+_x*/
+_vpl*/
+xcd*/
+.ipynb_checkpoints/
+__pycache__/
+
+# その他
+test_output.*
+
+# Python 関連
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+build/
+dist/
+*.egg
+
+# IDE/エディタ関連
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ローカル Vitis/Vivado プロジェクトファイル
+emconfig.json
+launch_sw_emu.sh
+launch_hw_emu.sh
+launch_hw.sh 
