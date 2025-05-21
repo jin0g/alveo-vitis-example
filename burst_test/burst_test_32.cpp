@@ -12,6 +12,7 @@ extern "C" void burst_test_32(const int* in, int* out, const int size, const int
 #pragma HLS INTERFACE s_axilite port=size
 #pragma HLS INTERFACE s_axilite port=burst_length
 #pragma HLS INTERFACE s_axilite port=return
+#pragma HLS DATAFLOW
 
     for (int i = 0; i < size; i++) {
 #pragma HLS PIPELINE II=1
