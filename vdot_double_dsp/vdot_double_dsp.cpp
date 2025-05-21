@@ -9,6 +9,34 @@
 #include <ap_int.h>
 
 /**
+ * Double MAC implementation using ap_int
+ * Maps two int8 multiplications to a single DSP48E
+ */
+template<int IP, int WP, int AP>
+void doublemac(ap_int<IP> a, ap_int<IP> b, ap_int<WP> c, ap_int<AP> &x, ap_int<AP> &y) {
+#pragma HLS INLINE
+    (x, y) = (x, y) + ((ap_int<IP + AP>(a) << AP) + b) * c;
+}
+
+/**
+ * Encode accumulator before MAC operations to handle sign bits correctly
+ */
+template<int AP>
+void doublemac_encode(ap_int<AP> &x, ap_int<AP> &y) {
+#pragma HLS INLINE
+    x = x - y.sign();
+}
+
+/**
+ * Decode accumulator after MAC operations to restore correct values
+ */
+template<int AP>
+void doublemac_decode(ap_int<AP> &x, ap_int<AP> &y) {
+#pragma HLS INLINE
+    x = x + y.sign();
+}
+
+/**
  * Compute the dot product of two pairs of int8 values using the double_dsp technique.
  * 
  * This function is designed to be mapped to a single DSP48E block on the FPGA.
@@ -24,8 +52,25 @@
 inline int compute_double_dsp(int8_t a0, int8_t a1, int8_t b0, int8_t b1) {
 #pragma HLS INLINE
 
-    int32_t result = static_cast<int32_t>(a0) * static_cast<int32_t>(b0) + 
-                     static_cast<int32_t>(a1) * static_cast<int32_t>(b1);
+    constexpr int IP = 8;
+    constexpr int WP = 8;
+    constexpr int AP = 18;
+
+    ap_int<IP> ap_a0 = a0;
+    ap_int<IP> ap_a1 = a1;
+    ap_int<WP> ap_b0 = b0;
+    ap_int<WP> ap_b1 = b1;
+    
+    ap_int<AP> accum0 = 0;
+    ap_int<AP> accum1 = 0;
+    
+    doublemac_encode(accum0, accum1);
+    
+    doublemac<IP, WP, AP>(ap_a0, ap_a1, ap_b0, accum0, accum1);
+    
+    doublemac_decode(accum0, accum1);
+    
+    int32_t result = accum0 + accum1 * static_cast<int32_t>(b1);
     
     return result;
 }
@@ -51,7 +96,7 @@ void vdot_double_dsp(const int8_t* a, const int8_t* b, int* result, int size) {
 #pragma HLS INTERFACE s_axilite port=size
 #pragma HLS INTERFACE s_axilite port=return
 
-    int local_result = 0;
+    ap_int<32> local_result = 0;
     
     for (int i = 0; i < size / 2; ++i) {
 #pragma HLS PIPELINE II=1
