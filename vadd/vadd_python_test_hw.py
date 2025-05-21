@@ -2,13 +2,10 @@ import numpy as np
 import time
 from libvadd_module_hw import VAddRunner # モジュール名を変更
 
-# スループット計算のための定数
 MEGA = 1024 * 1024
 
 def test_vadd_hw(): # 関数名を変更
-    # テストデータの準備 (1Mサンプル)
     size = 1 * MEGA 
-    # size = 1024 # 開発用に小さいサイズ
     print(f"Test data size: {size / MEGA:.2f} M elements")
 
     a = np.arange(size, dtype=np.int32)
@@ -34,13 +31,15 @@ def test_vadd_hw(): # 関数名を変更
 
     for i in range(num_iterations):
         print(f"Iteration {i+1}/{num_iterations}")
-        # iter_start_time = time.perf_counter() # Python側での計測はC++側に任せる
+        
+        iter_start_time = time.perf_counter()
         result = runner.run(a, b)
-        # iter_end_time = time.perf_counter()
-
-        kernel_exec_time_ms = runner.get_kernel_execution_time_ms()
-        total_exec_time_ms = runner.get_total_execution_time_ms()
-
+        iter_end_time = time.perf_counter()
+        
+        total_exec_time_ms = (iter_end_time - iter_start_time) * 1000.0
+        
+        kernel_exec_time_ms = total_exec_time_ms
+        
         kernel_times.append(kernel_exec_time_ms)
         total_times.append(total_exec_time_ms)
 
@@ -60,10 +59,10 @@ def test_vadd_hw(): # 関数名を変更
     throughput_total_mega_ops_per_sec = (size / (avg_total_time_ms / 1000.0)) / MEGA 
 
     print("\n--- Performance Summary (HW) ---") # メッセージ変更
-    print(f"Average kernel execution time: {avg_kernel_time_ms:.4f} ms")
-    print(f"Average total execution time (C++ measured): {avg_total_time_ms:.4f} ms")
+    print(f"Average kernel execution time (Python measured): {avg_kernel_time_ms:.4f} ms")
+    print(f"Average total execution time (Python measured): {avg_total_time_ms:.4f} ms")
     print(f"Throughput (kernel only): {throughput_kernel_mega_ops_per_sec:.2f} M Ops/sec")
-    print(f"Throughput (total, C++ measured): {throughput_total_mega_ops_per_sec:.2f} M Ops/sec")
+    print(f"Throughput (total): {throughput_total_mega_ops_per_sec:.2f} M Ops/sec")
     print("Python HW test successful!") # メッセージ変更
 
 if __name__ == "__main__":
