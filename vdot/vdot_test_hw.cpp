@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025, Spice Engine Co., Ltd.
+ *
+ * Redistribution and use in any form, with or without modification, are strictly prohibited.
+ * Unauthorized commercial use of this software is prohibited.
+ * Use of this software in life-critical applications or systems is strictly prohibited.
+ */
 #include <iostream>
 #include <vector>
 #include <string>
@@ -87,4 +94,4 @@ int main(int argc, char** argv) {
         std::cout << "Difference: " << (result_sw - result_hw) << std::endl;
         return EXIT_FAILURE;
     }
-} 
+}  
