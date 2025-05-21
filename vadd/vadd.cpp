@@ -6,14 +6,38 @@
  * Use of this software in life-critical applications or systems is strictly prohibited.
  */
 extern "C" void vadd(const int* a, const int* b, int* c, const int size) {
-#pragma HLS INTERFACE m_axi port=a offset=slave bundle=gmem0
-#pragma HLS INTERFACE m_axi port=b offset=slave bundle=gmem1
-#pragma HLS INTERFACE m_axi port=c offset=slave bundle=gmem2
+#pragma HLS INTERFACE m_axi port=a offset=slave bundle=gmem0 max_read_burst_length=256 max_write_burst_length=256
+#pragma HLS INTERFACE m_axi port=b offset=slave bundle=gmem0 max_read_burst_length=256 max_write_burst_length=256
+#pragma HLS INTERFACE m_axi port=c offset=slave bundle=gmem0 max_read_burst_length=256 max_write_burst_length=256
 #pragma HLS INTERFACE s_axilite port=size
 #pragma HLS INTERFACE s_axilite port=return
 
-    for (int i = 0; i < size; i++) {
+    int local_a[1024];
+    int local_b[1024];
+    int local_c[1024];
+#pragma HLS RESOURCE variable=local_a core=RAM_2P_BRAM
+#pragma HLS RESOURCE variable=local_b core=RAM_2P_BRAM
+#pragma HLS RESOURCE variable=local_c core=RAM_2P_BRAM
+
+    const int TILE_SIZE = 1024;
+    
+    for (int tile = 0; tile < size; tile += TILE_SIZE) {
+        int current_tile_size = (tile + TILE_SIZE > size) ? (size - tile) : TILE_SIZE;
+        
+        for (int i = 0; i < current_tile_size; i++) {
 #pragma HLS PIPELINE II=1
-        c[i] = a[i] + b[i];
+            local_a[i] = a[tile + i];
+            local_b[i] = b[tile + i];
+        }
+        
+        for (int i = 0; i < current_tile_size; i++) {
+#pragma HLS PIPELINE II=1
+            local_c[i] = local_a[i] + local_b[i];
+        }
+        
+        for (int i = 0; i < current_tile_size; i++) {
+#pragma HLS PIPELINE II=1
+            c[tile + i] = local_c[i];
+        }
     }
 }
