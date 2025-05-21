@@ -47,7 +47,7 @@ extern "C" {
 void vdot_double_dsp(const int8_t* a, const int8_t* b, int* result, int size) {
 #pragma HLS INTERFACE m_axi port=a offset=slave bundle=gmem0
 #pragma HLS INTERFACE m_axi port=b offset=slave bundle=gmem1
-#pragma HLS INTERFACE s_axilite port=result
+#pragma HLS INTERFACE m_axi port=result offset=slave bundle=gmem2
 #pragma HLS INTERFACE s_axilite port=size
 #pragma HLS INTERFACE s_axilite port=return
 
