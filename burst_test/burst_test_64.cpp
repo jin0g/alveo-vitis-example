@@ -7,14 +7,14 @@
  */
 
 extern "C" void burst_test_64(const long long* in, long long* out, const int size, const int burst_length) {
-#pragma HLS INTERFACE m_axi port=in max_read_burst_length=burst_length
-#pragma HLS INTERFACE m_axi port=out max_write_burst_length=burst_length
+#pragma HLS INTERFACE m_axi port=in offset=slave bundle=gmem0 max_read_burst_length=burst_length
+#pragma HLS INTERFACE m_axi port=out offset=slave bundle=gmem1 max_write_burst_length=burst_length
 #pragma HLS INTERFACE s_axilite port=size
 #pragma HLS INTERFACE s_axilite port=burst_length
 #pragma HLS INTERFACE s_axilite port=return
 
     for (int i = 0; i < size; i++) {
-#pragma HLS PIPELINE
+#pragma HLS PIPELINE II=1
         out[i] = in[i] + 1;
     }
 }
