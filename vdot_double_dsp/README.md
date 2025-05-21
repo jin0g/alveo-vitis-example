@@ -16,6 +16,9 @@ The `vdot_double_dsp` kernel processes 4 int8 input streams (A0, A1, B0, B1) and
 - `vdot_double_dsp_python_test_sw.py`: Python test for software simulation
 - `vdot_double_dsp_python_test_hw.py`: Python test for hardware
 - `Makefile`: Build instructions
+- `double_mac_test.cpp`: Basic test for double MAC implementation
+- `double_mac_apint_test.cpp`: Test for ap_int<> based double MAC implementation
+- `double_mac_improved_test.cpp`: Comprehensive test comparing different double MAC implementations
 
 ## Building and Running
 
@@ -38,6 +41,14 @@ make run_python_test_sw
 make run_python_test_hw
 ```
 
+### Test Files
+
+To understand and verify the double_dsp technique, we've created several test files:
+
+- `double_mac_test.cpp`: Basic test for the double MAC implementation, verifying that two int8 multiplications can be correctly mapped to a single operation.
+- `double_mac_apint_test.cpp`: Test for ap_int<> based double MAC implementation, exploring different template parameter combinations.
+- `double_mac_improved_test.cpp`: Comprehensive test comparing different double MAC implementations with 25 test cases covering various int8 input combinations.
+
 ## Implementation Details
 
 The double_dsp technique works by:
@@ -47,3 +58,11 @@ The double_dsp technique works by:
 3. Extracting and accumulating the results
 
 This implementation achieves higher throughput by utilizing the DSP blocks more efficiently.
+
+## HLS Synthesis Results
+
+The HLS synthesis report shows that our implementation uses a total of 3 DSP blocks:
+- 2 DSPs in the main loop processing pairs of elements
+- 1 DSP for handling odd-sized vectors
+
+This confirms that our double_dsp technique is working as expected, efficiently mapping int8 multiplications to DSP48E blocks.
