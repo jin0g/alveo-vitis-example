@@ -8,6 +8,19 @@
 #include <cstdint>
 #include <ap_int.h>
 
+/**
+ * Compute the dot product of two pairs of int8 values using the double_dsp technique.
+ * 
+ * This function is designed to be mapped to a single DSP48E block on the FPGA.
+ * When synthesized with Vitis HLS, the compiler will recognize this pattern and
+ * optimize it to use a single DSP48E for the two multiplications.
+ * 
+ * @param a0 First element of vector A
+ * @param a1 Second element of vector A
+ * @param b0 First element of vector B
+ * @param b1 Second element of vector B
+ * @return The dot product (a0*b0 + a1*b1) as an int32
+ */
 inline int compute_double_dsp(int8_t a0, int8_t a1, int8_t b0, int8_t b1) {
 #pragma HLS INLINE
 
@@ -19,6 +32,18 @@ inline int compute_double_dsp(int8_t a0, int8_t a1, int8_t b0, int8_t b1) {
 
 extern "C" {
 
+/**
+ * Vector dot product kernel using the double_dsp technique.
+ * 
+ * This kernel processes pairs of int8 elements from vectors A and B,
+ * computing their dot product using the double_dsp technique which
+ * maps two int8 multiplications to a single DSP48E block.
+ * 
+ * @param a Pointer to vector A (int8_t elements)
+ * @param b Pointer to vector B (int8_t elements)
+ * @param result Pointer to store the final dot product result
+ * @param size Number of elements in vectors A and B
+ */
 void vdot_double_dsp(const int8_t* a, const int8_t* b, int* result, int size) {
 #pragma HLS INTERFACE m_axi port=a offset=slave bundle=gmem0
 #pragma HLS INTERFACE m_axi port=b offset=slave bundle=gmem1
