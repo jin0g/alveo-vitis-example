@@ -43,8 +43,9 @@ void doublemac_decode(ap_int<AP> &x, ap_int<AP> &y) {
  * When synthesized with Vitis HLS, the compiler will recognize this pattern and
  * optimize it to use a single DSP48E for the two multiplications.
  * 
- * The implementation uses ap_int<> template and bit manipulation to pack two int8
- * multiplications into a single DSP48E operation, while ensuring correct results.
+ * The implementation uses direct calculation with proper type casting to ensure
+ * correct results while allowing the HLS compiler to optimize the operations
+ * into efficient DSP48E usage.
  * 
  * @param a0 First element of vector A
  * @param a1 Second element of vector A
@@ -55,21 +56,6 @@ void doublemac_decode(ap_int<AP> &x, ap_int<AP> &y) {
 inline int compute_double_dsp(int8_t a0, int8_t a1, int8_t b0, int8_t b1) {
 #pragma HLS INLINE
 
-    constexpr int IP = 8;    // Input bit width
-    constexpr int WP = 8;    // Weight bit width
-    constexpr int AP = 24;   // Accumulator bit width (within 48-bit DSP limit)
-
-    ap_int<IP> ap_a0 = a0;
-    ap_int<IP> ap_a1 = a1;
-    ap_int<WP> ap_b0 = b0;
-    ap_int<WP> ap_b1 = b1;
-    
-    ap_int<IP*2> packed_a = (ap_int<IP*2>(ap_a0) << IP) | (ap_int<IP*2>(ap_a1) & ((1 << IP) - 1));
-    
-    ap_int<WP*2> packed_b = (ap_int<WP*2>(ap_b0) << WP) | (ap_int<WP*2>(ap_b1) & ((1 << WP) - 1));
-    
-    ap_int<IP*2 + WP*2> packed_result = packed_a * packed_b;
-    
     int32_t result = static_cast<int32_t>(a0) * static_cast<int32_t>(b0) + 
                      static_cast<int32_t>(a1) * static_cast<int32_t>(b1);
     
