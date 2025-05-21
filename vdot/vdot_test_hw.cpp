@@ -53,9 +53,9 @@ int main(int argc, char** argv) {
 
         std::cout << "Allocating buffers..." << std::endl;
         
-        auto bo_a = xrt::bo(device, DATA_SIZE * sizeof(char), kernel.group_id(0));
-        auto bo_b = xrt::bo(device, DATA_SIZE * sizeof(char), kernel.group_id(1));
-        auto bo_result = xrt::bo(device, sizeof(int), kernel.group_id(2)); // Result is a single int
+        auto bo_a = xrt::bo(device, DATA_SIZE * sizeof(char), XRT_BO_FLAGS_NONE);
+        auto bo_b = xrt::bo(device, DATA_SIZE * sizeof(char), XRT_BO_FLAGS_NONE);
+        auto bo_result = xrt::bo(device, sizeof(int), XRT_BO_FLAGS_NONE); // Result is a single int
 
         std::cout << "Writing data to device..." << std::endl;
         bo_a.write(source_a.data());
@@ -95,4 +95,4 @@ int main(int argc, char** argv) {
         std::cout << "Difference: " << (result_sw - result_hw) << std::endl;
         return EXIT_FAILURE;
     }
-}          
+}            
