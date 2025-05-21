@@ -12,18 +12,18 @@ extern "C" {
 inline int compute_double_dsp(int8_t a0, int8_t a1, int8_t b0, int8_t b1) {
 #pragma HLS INLINE
 
-    
     int16_t a0_ext = static_cast<int16_t>(a0);
     int16_t a1_ext = static_cast<int16_t>(a1);
     int16_t b0_ext = static_cast<int16_t>(b0);
     int16_t b1_ext = static_cast<int16_t>(b1);
     
     int16_t a_packed = (a0_ext & 0xFF) | ((a1_ext & 0xFF) << 8);
-    
     int16_t b_packed = (b0_ext & 0xFF) | ((b1_ext & 0xFF) << 8);
     
     int32_t packed_result = a_packed * b_packed;
     
+    int32_t lower_result = (packed_result & 0xFFFF);
+    int32_t upper_result = ((packed_result >> 16) & 0xFFFF);
     
     int32_t a0b0 = static_cast<int32_t>(a0) * static_cast<int32_t>(b0);
     int32_t a1b1 = static_cast<int32_t>(a1) * static_cast<int32_t>(b1);

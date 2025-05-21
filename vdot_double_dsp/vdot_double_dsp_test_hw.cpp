@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
         std::cout << "Allocating buffers..." << std::endl;
         auto bo_a = xrt::bo(device, DATA_SIZE * sizeof(int8_t), kernel.group_id(0)); 
         auto bo_b = xrt::bo(device, DATA_SIZE * sizeof(int8_t), kernel.group_id(1)); 
-        auto bo_result = xrt::bo(device, sizeof(int), kernel.group_id(2)); // Result is a single int
+        int result_hw = 0;
 
         std::cout << "Writing data to device..." << std::endl;
         bo_a.write(source_a.data());
@@ -58,15 +58,13 @@ int main(int argc, char** argv) {
 
         std::cout << "Executing kernel..." << std::endl;
         auto run_start_time = std::chrono::high_resolution_clock::now();
-        auto run = kernel(bo_a, bo_b, bo_result, DATA_SIZE);
+        auto run = kernel(bo_a, bo_b, &result_hw, DATA_SIZE);
         run.wait();
         auto run_end_time = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double, std::milli> run_duration_ms = run_end_time - run_start_time;
         std::cout << "Kernel execution time: " << run_duration_ms.count() << " ms" << std::endl;
 
-        std::cout << "Reading data from device..." << std::endl;
-        bo_result.sync(XCL_BO_SYNC_BO_FROM_DEVICE);
-        bo_result.read(&result_hw); // Read into a single int variable
+        std::cout << "Result directly available via s_axilite: " << result_hw << std::endl;
 
     } catch (const std::exception& ex) {
         std::cerr << "Exception caught: " << ex.what() << std::endl;
