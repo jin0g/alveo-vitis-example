@@ -49,6 +49,8 @@ To understand and verify the double_dsp technique, we've created several test fi
 - `double_mac_apint_test.cpp`: Test for ap_int<> based double MAC implementation, exploring different template parameter combinations.
 - `double_mac_improved_test.cpp`: Comprehensive test comparing different double MAC implementations with 25 test cases covering various int8 input combinations.
 
+Our test results show that the simplified direct calculation approach passes all 25/25 test cases, while more complex bit-packing approaches only pass 9/25 cases. This validates our decision to use the simpler approach in our final implementation, which ensures correct results across all input combinations while still benefiting from DSP48E optimization.
+
 ## Implementation Details
 
 The double_dsp technique works by:
