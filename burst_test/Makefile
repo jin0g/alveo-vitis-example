@@ -22,26 +22,26 @@ PYTHON_MODULE := libbursttest_module_hw.so
 all: $(TARGETS) $(TOP)_test_hw $(PYTHON_MODULE)
 
 # Rule for building .xo files
-$(TOP)_%_32.xo: $(TOP)_32.cpp
+$(TOP)_32.xo: $(TOP)_32.cpp
 	$(VXX) -c -k $(TOP)_32 $(VXX_HW_FLAGS) -o $@ $<
 
-$(TOP)_%_64.xo: $(TOP)_64.cpp
+$(TOP)_64.xo: $(TOP)_64.cpp
 	$(VXX) -c -k $(TOP)_64 $(VXX_HW_FLAGS) -o $@ $<
 
-$(TOP)_%_128.xo: $(TOP)_128.cpp
+$(TOP)_128.xo: $(TOP)_128.cpp
 	$(VXX) -c -k $(TOP)_128 $(VXX_HW_FLAGS) -o $@ $<
 
-$(TOP)_%_256.xo: $(TOP)_256.cpp
+$(TOP)_256.xo: $(TOP)_256.cpp
 	$(VXX) -c -k $(TOP)_256 $(VXX_HW_FLAGS) -o $@ $<
 
-$(TOP)_%_512.xo: $(TOP)_512.cpp
+$(TOP)_512.xo: $(TOP)_512.cpp
 	$(VXX) -c -k $(TOP)_512 $(VXX_HW_FLAGS) -o $@ $<
 
-$(TOP)_%_1024.xo: $(TOP)_1024.cpp
+$(TOP)_1024.xo: $(TOP)_1024.cpp
 	$(VXX) -c -k $(TOP)_1024 $(VXX_HW_FLAGS) -o $@ $<
 
 # Rule for building .xclbin files
-$(TOP)_%.xclbin: $(TOP)_%_%.xo
+$(TOP)_%.xclbin: $(TOP)_%.xo
 	$(VXX) -l $(VXX_HW_FLAGS) -o $@ $<
 
 # Rule for building test executable
