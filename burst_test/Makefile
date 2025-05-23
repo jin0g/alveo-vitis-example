@@ -8,7 +8,7 @@ CXX := g++
 PYBIND11_INCLUDES := $(shell python3 -m pybind11 --includes)
 PYTHON_LDFLAGS := $(shell python3-config --ldflags --embed)
 
-COMMON_CXXFLAGS := -std=c++17 -O2 -fPIC -I./
+COMMON_CXXFLAGS := -std=c++17 -O2 -fPIC -I./ -I/tools/Xilinx/Vitis_HLS/2024.2/include/
 XRT_CXXFLAGS := -I$(XILINX_XRT)/include/
 XRT_LDFLAGS := -L$(XILINX_XRT)/lib -lxrt_coreutil -luuid
 
