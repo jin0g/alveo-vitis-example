@@ -7,7 +7,7 @@ RESULTS_FILE="test_results.txt"
 RESULTS_MD="results_table.md"
 
 BIT_WIDTHS=(32 64 128 256 512 1024)
-BURST_LENGTHS=(256 512 1024)
+BURST_LENGTHS=(64 128 256)
 NUM_ITERATIONS=5
 
 echo "# バースト転送最適化テスト結果" > $RESULTS_FILE

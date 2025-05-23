@@ -79,8 +79,8 @@ def main():
     parser = argparse.ArgumentParser(description='Run burst transfer tests')
     parser.add_argument('--bit-widths', type=int, nargs='+', default=[32, 64, 128, 256, 512, 1024],
                         help='Bit widths to test')
-    parser.add_argument('--burst-lengths', type=int, nargs='+', default=[256, 512, 1024],
-                        help='Burst lengths to test')
+    parser.add_argument('--burst-lengths', type=int, nargs='+', default=[64, 128, 256],
+                        help='Burst lengths to test (max 256)')
     parser.add_argument('--data-size', type=int, default=1*MEGA,
                         help='Data size in elements')
     args = parser.parse_args()
