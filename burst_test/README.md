@@ -40,6 +40,8 @@ make burst_test_test_hw
 
 ## テスト実行方法
 
+### 標準テストハーネス（すべてのビット幅）
+
 ```bash
 # 32ビット幅、バースト長256でテスト実行
 ./burst_test_test_hw burst_test_32.xclbin 32 256
@@ -49,6 +51,21 @@ make burst_test_test_hw
 
 # Pythonテストの実行（すべての組み合わせを自動的にテスト）
 python3 burst_test_python_test_hw.py
+```
+
+### 簡易テストハーネス（32ビットと64ビットのみ）
+
+ap_int.hに依存しない簡易テストハーネスも用意しています。32ビットと64ビットのカーネルのみをテストできます。
+
+```bash
+# 32ビット幅、バースト長256でテスト実行
+./burst_test_simple_hw burst_test_32.xclbin 32 256
+
+# 64ビット幅、バースト長512でテスト実行
+./burst_test_simple_hw burst_test_64.xclbin 64 512
+
+# 簡易Pythonテストの実行（32ビットと64ビットのみ）
+python3 burst_test_simple_python_hw.py
 ```
 
 ## テスト結果
