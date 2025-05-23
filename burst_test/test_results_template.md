@@ -11,24 +11,24 @@
 
 | ビット幅 | バースト長 | スループット (M Ops/sec) | 帯域幅 (MB/s) | 理論値比 (%) |
 |---------|-----------|------------------------|--------------|------------|
+| 32      | 64        | TBD                    | TBD          | TBD        |
+| 32      | 128       | TBD                    | TBD          | TBD        |
 | 32      | 256       | TBD                    | TBD          | TBD        |
-| 32      | 512       | TBD                    | TBD          | TBD        |
-| 32      | 1024      | TBD                    | TBD          | TBD        |
+| 64      | 64        | TBD                    | TBD          | TBD        |
+| 64      | 128       | TBD                    | TBD          | TBD        |
 | 64      | 256       | TBD                    | TBD          | TBD        |
-| 64      | 512       | TBD                    | TBD          | TBD        |
-| 64      | 1024      | TBD                    | TBD          | TBD        |
+| 128     | 64        | TBD                    | TBD          | TBD        |
+| 128     | 128       | TBD                    | TBD          | TBD        |
 | 128     | 256       | TBD                    | TBD          | TBD        |
-| 128     | 512       | TBD                    | TBD          | TBD        |
-| 128     | 1024      | TBD                    | TBD          | TBD        |
+| 256     | 64        | TBD                    | TBD          | TBD        |
+| 256     | 128       | TBD                    | TBD          | TBD        |
 | 256     | 256       | TBD                    | TBD          | TBD        |
-| 256     | 512       | TBD                    | TBD          | TBD        |
-| 256     | 1024      | TBD                    | TBD          | TBD        |
+| 512     | 64        | TBD                    | TBD          | TBD        |
+| 512     | 128       | TBD                    | TBD          | TBD        |
 | 512     | 256       | TBD                    | TBD          | TBD        |
-| 512     | 512       | TBD                    | TBD          | TBD        |
-| 512     | 1024      | TBD                    | TBD          | TBD        |
+| 1024    | 64        | TBD                    | TBD          | TBD        |
+| 1024    | 128       | TBD                    | TBD          | TBD        |
 | 1024    | 256       | TBD                    | TBD          | TBD        |
-| 1024    | 512       | TBD                    | TBD          | TBD        |
-| 1024    | 1024      | TBD                    | TBD          | TBD        |
 
 ## 考察
 
