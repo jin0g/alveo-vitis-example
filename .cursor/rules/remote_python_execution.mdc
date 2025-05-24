@@ -1,0 +1,56 @@
+---
+description: リモートサーバー（garnet）でのPython実行に関するガイドライン
+globs: 
+alwaysApply: true
+---
+# リモートサーバー（garnet）でのPython実行に関するガイドライン
+
+## 環境設定
+
+1. **Python環境の構成**:
+   - garnetサーバーでは、Python 3.12.3が仮想環境（`~/.venv/`）にインストールされています
+   - 仮想環境は`.bashrc`で自動的に有効化されます: `. ~/.venv/bin/activate`
+   - Pythonパスは正しく設定されています: `/home/agent/.venv/bin/python`
+
+2. **パッケージ管理の制限**:
+   - システムPythonは「externally managed」であり、`pip install`が制限されています
+   - 仮想環境内の`pip`が正しく設定されていない問題があります
+   - `uv`ツールは利用可能（`/home/agent/.local/bin/uv`）ですが、同様の制限があります
+
+## 推奨される対応策
+
+1. **C++テストの優先**:
+   - Pythonテストに問題がある場合は、C++テスト（`make template_test_sw`と`make run_test_sw`）を優先して実行
+   - ハードウェアテストも同様に、C++テスト（`make template_test_hw`と`make run_test_hw`）を優先
+
+2. **Pythonパッケージのインストール**:
+   - システム管理者に必要なパッケージ（例：`pybind11`）のインストールを依頼
+   - または、以下のコマンドでシステムワイドにインストール（管理者権限が必要）:
+     ```bash
+     sudo apt-get install python3-pybind11
+     ```
+
+3. **環境変数の設定**:
+   - Pythonモジュールのビルドに問題がある場合、以下の環境変数を設定して試行:
+     ```bash
+     export PYTHONPATH=$PYTHONPATH:/usr/lib/python3/dist-packages
+     ```
+
+## 今後の対応
+
+1. **仮想環境の再構築**:
+   - 長期的な解決策として、正しく設定された新しい仮想環境の作成を検討:
+     ```bash
+     python3 -m venv ~/.venv_new
+     source ~/.venv_new/bin/activate
+     pip install pybind11
+     ```
+
+2. **Makefileの修正**:
+   - Pythonテストが不可欠な場合、Makefileを修正してシステムのpybind11を使用するよう変更:
+     ```makefile
+     PYTHON_INCLUDE = $(shell python3 -c "import sysconfig; print(sysconfig.get_path('include'))")
+     PYBIND11_INCLUDE = /usr/include/pybind11
+     ```
+
+この文書は、garnetサーバーでのPython実行に関する問題と解決策をまとめたものです。環境が変更された場合は、適宜更新してください。
