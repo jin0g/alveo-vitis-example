@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025, Spice Engine Co., Ltd.
+ *
+ * Redistribution and use in any form, with or without modification, are strictly prohibited.
+ * Unauthorized commercial use of this software is prohibited.
+ * Use of this software in life-critical applications or systems is strictly prohibited.
+ */
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/numpy.h>
@@ -111,4 +118,4 @@ PYBIND11_MODULE(libvdot_module_hw, m) {
             "Returns the kernel execution time in milliseconds.")
         .def("get_total_execution_time_ms", &PyVDotRunner::get_total_execution_time_ms,
             "Returns the total execution time including data transfers in milliseconds.");
-} 
+}  

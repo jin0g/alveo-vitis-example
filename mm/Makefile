@@ -1,9 +1,9 @@
 PLATFORM := xilinx_u250_gen3x16_xdma_4_1_202210_1
-TOP := vdot
+TOP := mm
 
 VXX := v++
-VXX_HW_FLAGS := -t hw --platform $(PLATFORM) --save-temps
-VXX_SW_FLAGS := -t sw_emu --platform $(PLATFORM) --save-temps
+VXX_HW_FLAGS := -t hw --platform $(PLATFORM)
+VXX_SW_FLAGS := -t sw_emu --platform $(PLATFORM)
 
 CXX := g++
 PYBIND11_INCLUDES := $(shell python3 -m pybind11 --includes)
@@ -52,4 +52,4 @@ clean:
 	rm -rf .ipynb_checkpoints __pycache__ *.out *.dat
 
 clean_all: clean
-	rm -rf $(TOP).xo $(TOP).xclbin  
+	rm -rf $(TOP).xo $(TOP).xclbin

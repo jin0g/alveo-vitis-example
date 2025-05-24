@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+#
+#
+#
 import numpy as np
 import time
 from libvdot_module_hw import VDotRunner # HWモジュールをインポート
@@ -74,4 +78,4 @@ def test_vdot_hw():
     print("Python HW test completed.")
 
 if __name__ == "__main__":
-    test_vdot_hw() 
+    test_vdot_hw()  

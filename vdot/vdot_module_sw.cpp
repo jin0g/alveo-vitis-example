@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025, Spice Engine Co., Ltd.
+ *
+ * Redistribution and use in any form, with or without modification, are strictly prohibited.
+ * Unauthorized commercial use of this software is prohibited.
+ * Use of this software in life-critical applications or systems is strictly prohibited.
+ */
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/numpy.h>
@@ -46,4 +53,4 @@ PYBIND11_MODULE(libvdot_module_sw, m) {
         .def("run", &VDotSim::run,
              py::arg("a").noconvert(), py::arg("b").noconvert(), // Ensure numpy arrays are char
              "Runs the vdot kernel software simulation with two input numpy char arrays and returns the result as an int.");
-} 
+}  
