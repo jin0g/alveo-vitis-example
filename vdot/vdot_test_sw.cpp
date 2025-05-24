@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025, Spice Engine Co., Ltd.
+ *
+ * Redistribution and use in any form, with or without modification, are strictly prohibited.
+ * Unauthorized commercial use of this software is prohibited.
+ * Use of this software in life-critical applications or systems is strictly prohibited.
+ */
 #include <iostream>
 #include <vector>
 #include <numeric> // For std::inner_product
@@ -42,4 +49,4 @@ int main() {
     }
 
     return match ? 0 : 1;
-} 
+}  

@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2025, Spice Engine Co., Ltd.
+ *
+ * Redistribution and use in any form, with or without modification, are strictly prohibited.
+ * Unauthorized commercial use of this software is prohibited.
+ * Use of this software in life-critical applications or systems is strictly prohibited.
+ */
 #include <iostream>
 #include <vector>
 #include <string>
@@ -45,9 +52,10 @@ int main(int argc, char** argv) {
         auto kernel = xrt::kernel(device, uuid, KERNEL_NAME);
 
         std::cout << "Allocating buffers..." << std::endl;
-        auto bo_a = xrt::bo(device, DATA_SIZE * sizeof(char), kernel.group_id(0)); 
-        auto bo_b = xrt::bo(device, DATA_SIZE * sizeof(char), kernel.group_id(1)); 
-        auto bo_result = xrt::bo(device, sizeof(int), kernel.group_id(2)); // Result is a single int
+        
+        auto bo_a = xrt::bo(device, source_a.data(), DATA_SIZE * sizeof(char), XCL_BO_FLAGS_HOST_ONLY);
+        auto bo_b = xrt::bo(device, source_b.data(), DATA_SIZE * sizeof(char), XCL_BO_FLAGS_HOST_ONLY);
+        auto bo_result = xrt::bo(device, &result_hw, sizeof(int), XCL_BO_FLAGS_HOST_ONLY);
 
         std::cout << "Writing data to device..." << std::endl;
         bo_a.write(source_a.data());
@@ -87,4 +95,4 @@ int main(int argc, char** argv) {
         std::cout << "Difference: " << (result_sw - result_hw) << std::endl;
         return EXIT_FAILURE;
     }
-} 
+}              

@@ -1,3 +1,7 @@
+#!/usr/bin/env python3
+#
+#
+#
 import numpy as np
 from libvdot_module_sw import VDotSim # SWモジュールをインポート
 
@@ -40,4 +44,4 @@ def test_vdot_sw():
         print(f"Difference: {result_sim - expected_result}")
 
 if __name__ == "__main__":
-    test_vdot_sw() 
+    test_vdot_sw()  
