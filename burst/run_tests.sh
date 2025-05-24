@@ -21,13 +21,13 @@ echo "|---------|-----------|------------------------|--------------|-----------
 
 for bit_width in 32 64; do
     for burst_length in "${BURST_LENGTHS[@]}"; do
-        xclbin_file="burst_test_${bit_width}.xclbin"
+        xclbin_file="burst_${bit_width}.xclbin"
         
         if [ -f "$xclbin_file" ]; then
             echo "=== テスト実行: ${bit_width}ビット, バースト長 ${burst_length} ===" >> $RESULTS_FILE
             echo "簡易テストハーネスを使用" >> $RESULTS_FILE
             
-            ./burst_test_simple_hw $xclbin_file $bit_width $burst_length | tee -a $RESULTS_FILE
+            ./burst_simple_hw $xclbin_file $bit_width $burst_length | tee -a $RESULTS_FILE
             
             throughput=$(grep "Throughput:" $RESULTS_FILE | tail -1 | awk '{print $2}')
             bandwidth=$(grep "Bandwidth:" $RESULTS_FILE | tail -1 | awk '{print $2}')
@@ -52,13 +52,13 @@ for bit_width in "${BIT_WIDTHS[@]}"; do
     fi
     
     for burst_length in "${BURST_LENGTHS[@]}"; do
-        xclbin_file="burst_test_${bit_width}.xclbin"
+        xclbin_file="burst_${bit_width}.xclbin"
         
         if [ -f "$xclbin_file" ]; then
             echo "=== テスト実行: ${bit_width}ビット, バースト長 ${burst_length} ===" >> $RESULTS_FILE
             echo "標準テストハーネスを使用" >> $RESULTS_FILE
             
-            ./burst_test_test_hw $xclbin_file $bit_width $burst_length | tee -a $RESULTS_FILE
+            ./burst_test_hw $xclbin_file $bit_width $burst_length | tee -a $RESULTS_FILE
             
             throughput=$(grep "Throughput:" $RESULTS_FILE | tail -1 | awk '{print $2}')
             bandwidth=$(grep "Bandwidth:" $RESULTS_FILE | tail -1 | awk '{print $2}')

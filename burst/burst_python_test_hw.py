@@ -17,11 +17,11 @@ def test_burst_transfer(bit_width, burst_length, data_size=1*MEGA):
     print(f"Testing {bit_width}-bit width with burst length {burst_length}")
     
     if bit_width == 32:
-        xclbin_file = f"burst_test_{bit_width}.xclbin"
+        xclbin_file = f"burst_{bit_width}.xclbin"
         runner = BurstTestRunner32(xclbin_file)
         input_data = np.arange(data_size, dtype=np.int32)
     elif bit_width == 64:
-        xclbin_file = f"burst_test_{bit_width}.xclbin"
+        xclbin_file = f"burst_{bit_width}.xclbin"
         runner = BurstTestRunner64(xclbin_file)
         input_data = np.arange(data_size, dtype=np.int64)
     else:
@@ -95,7 +95,7 @@ def main():
     
     if results:
         df = pd.DataFrame(results)
-        output_file = "burst_test_results.csv"
+        output_file = "burst_results.csv"
         df.to_csv(output_file, index=False)
         print(f"Results saved to {output_file}")
         

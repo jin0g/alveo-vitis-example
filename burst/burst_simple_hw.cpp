@@ -15,8 +15,8 @@ const int DATA_SIZE = 1024 * 1024; // 1M elements
 const int NUM_ITERATIONS = 5;
 const int MEGA = 1024 * 1024;
 
-const char* KERNEL_NAME_32 = "burst_test_32";
-const char* KERNEL_NAME_64 = "burst_test_64";
+const char* KERNEL_NAME_32 = "burst_32";
+const char* KERNEL_NAME_64 = "burst_64";
 
 void runTest32(const std::string& xclbin_file, int burst_length) {
     std::cout << "Running 32-bit test with " << DATA_SIZE << " elements and burst length " << burst_length << std::endl;

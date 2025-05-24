@@ -6,7 +6,7 @@
  * Use of this software in life-critical applications or systems is strictly prohibited.
  */
 
-extern "C" void ddr_bandwidth_test(
+extern "C" void maximum_bandwidth(
     const int* input0, const int* input1, const int* input2, const int* input3,
     int* output0, int* output1, int* output2, int* output3,
     const int size) {

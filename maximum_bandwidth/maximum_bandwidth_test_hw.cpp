@@ -18,7 +18,7 @@
 #include "experimental/xrt_device.h"
 #include "experimental/xrt_kernel.h"
 
-const char* KERNEL_NAME = "ddr_bandwidth_test";
+const char* KERNEL_NAME = "maximum_bandwidth";
 
 inline double to_gb(double bytes) {
     return bytes / (1024.0 * 1024.0 * 1024.0);

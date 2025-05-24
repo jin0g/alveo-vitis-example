@@ -6,7 +6,9 @@
  * Use of this software in life-critical applications or systems is strictly prohibited.
  */
 
-extern "C" void burst_test_32(const int* in, int* out, const int size, const int burst_length) {
+#include "ap_int.h"
+
+extern "C" void burst_512(const ap_int<512>* in, ap_int<512>* out, const int size, const int burst_length) {
 #pragma HLS INTERFACE m_axi port=in offset=slave bundle=gmem0 max_read_burst_length=burst_length
 #pragma HLS INTERFACE m_axi port=out offset=slave bundle=gmem1 max_write_burst_length=burst_length
 #pragma HLS INTERFACE s_axilite port=size

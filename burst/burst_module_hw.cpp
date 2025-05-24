@@ -70,7 +70,7 @@ private:
 class PyBurstTestRunner32 {
 public:
     PyBurstTestRunner32(const std::string& xclbin_path) 
-        : runner_(xclbin_path, "burst_test_32") {}
+        : runner_(xclbin_path, "burst_32") {}
 
     py::array_t<int> run(py::array_t<int, py::array::c_style | py::array::forcecast> input, 
                           int burst_length) {
@@ -104,7 +104,7 @@ private:
 class PyBurstTestRunner64 {
 public:
     PyBurstTestRunner64(const std::string& xclbin_path) 
-        : runner_(xclbin_path, "burst_test_64") {}
+        : runner_(xclbin_path, "burst_64") {}
 
     py::array_t<long long> run(py::array_t<long long, py::array::c_style | py::array::forcecast> input, 
                                 int burst_length) {
@@ -142,7 +142,7 @@ PYBIND11_MODULE(libbursttest_module_hw, m) {
         .def(py::init<const std::string&>())
         .def("run", &PyBurstTestRunner32::run,
              py::arg("input").noconvert(), py::arg("burst_length") = 256,
-             "Runs the burst_test_32 kernel with input array and returns the result.")
+             "Runs the burst_32 kernel with input array and returns the result.")
         .def("get_kernel_execution_time_ms", &PyBurstTestRunner32::get_kernel_execution_time_ms,
             "Returns the kernel execution time in milliseconds.")
         .def("get_total_execution_time_ms", &PyBurstTestRunner32::get_total_execution_time_ms,
@@ -152,7 +152,7 @@ PYBIND11_MODULE(libbursttest_module_hw, m) {
         .def(py::init<const std::string&>())
         .def("run", &PyBurstTestRunner64::run,
              py::arg("input").noconvert(), py::arg("burst_length") = 256,
-             "Runs the burst_test_64 kernel with input array and returns the result.")
+             "Runs the burst_64 kernel with input array and returns the result.")
         .def("get_kernel_execution_time_ms", &PyBurstTestRunner64::get_kernel_execution_time_ms,
             "Returns the kernel execution time in milliseconds.")
         .def("get_total_execution_time_ms", &PyBurstTestRunner64::get_total_execution_time_ms,

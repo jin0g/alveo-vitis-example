@@ -12,7 +12,7 @@ def run_test(bit_width, burst_length, xclbin_file):
     """Run the test with specified bit width and burst length"""
     print(f"Running test with bit width {bit_width}, burst length {burst_length}")
     
-    cmd = f"./burst_test_simple_hw {xclbin_file} {bit_width} {burst_length}"
+    cmd = f"./burst_simple_hw {xclbin_file} {bit_width} {burst_length}"
     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
     
     if result.returncode != 0:
@@ -51,7 +51,7 @@ def main():
     results = []
     
     for bit_width in bit_widths:
-        xclbin_file = f"burst_test_{bit_width}.xclbin"
+        xclbin_file = f"burst_{bit_width}.xclbin"
         
         if not os.path.exists(xclbin_file):
             print(f"Warning: {xclbin_file} not found, skipping {bit_width}-bit tests")
