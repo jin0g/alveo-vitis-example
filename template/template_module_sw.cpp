@@ -3,7 +3,7 @@
 #include <pybind11/numpy.h>
 #include <vector>
 
-extern "C" void template(const int* in, int* out, const int size);
+extern "C" void template_kernel(const int* in, int* out, const int size);
 
 namespace py = pybind11;
 
@@ -21,7 +21,7 @@ public:
         std::vector<int> vec_in(np_in.data(), np_in.data() + size);
         std::vector<int> vec_result(size);
 
-        template(vec_in.data(), vec_result.data(), size);
+        template_kernel(vec_in.data(), vec_result.data(), size);
         
         py::array_t<int> result_array(vec_result.size());
         std::memcpy(result_array.mutable_data(), vec_result.data(), vec_result.size() * sizeof(int));

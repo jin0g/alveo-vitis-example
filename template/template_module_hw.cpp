@@ -45,7 +45,7 @@ private:
 class PyTemplateRunner {
 public:
     PyTemplateRunner(const std::string& xclbin_path)
-        : runner_(xclbin_path, "template") {} // Kernel name is fixed as "template"
+        : runner_(xclbin_path, "template_kernel") {} // Kernel name is fixed as "template"
 
     py::array_t<int> run(py::array_t<int, py::array::c_style | py::array::forcecast> in) {
         if (in.ndim() != 1) {

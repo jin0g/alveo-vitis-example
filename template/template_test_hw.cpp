@@ -9,7 +9,7 @@
 #include "experimental/xrt_device.h"
 #include "experimental/xrt_kernel.h"
 
-const char* KERNEL_NAME = "template";
+const char* KERNEL_NAME = "template_kernel";
 
 int main(int argc, char** argv) {
     if (argc != 2) {

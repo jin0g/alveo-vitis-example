@@ -3,7 +3,7 @@
 #include <cstdlib> // For rand() and srand()
 #include <ctime>   // For time()
 
-extern "C" void template(const int* in, int* out, const int size);
+extern "C" void template_kernel(const int* in, int* out, const int size);
 
 bool run_test(int data_size) {
     std::vector<int> in(data_size);
@@ -16,7 +16,7 @@ bool run_test(int data_size) {
         in[i] = rand() % 100; // Random numbers between 0 and 99
     }
 
-    template(in.data(), out_hw.data(), data_size);
+    template_kernel(in.data(), out_hw.data(), data_size);
 
     for (int i = 0; i < data_size; ++i) {
         out_sw[i] = in[i]; // Simple copy operation

@@ -16,7 +16,7 @@ XRT_LDFLAGS := -L$(XILINX_XRT)/lib -lxrt_coreutil -luuid
 all: $(TOP).xclbin $(TOP)_test_sw $(TOP)_test_hw lib$(TOP)_module_sw.so lib$(TOP)_module_hw.so
 
 $(TOP).xo: $(TOP).cpp
-	$(VXX) -c -k $(TOP) $(VXX_HW_FLAGS) -o $@ $<
+	$(VXX) -c -k template_kernel $(VXX_HW_FLAGS) -o $@ $<
 
 $(TOP).xclbin: $(TOP).xo
 	$(VXX) -l $(VXX_HW_FLAGS) -o $@ $<

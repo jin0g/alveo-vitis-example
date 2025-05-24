@@ -1,4 +1,4 @@
-extern "C" void template(const int* in, int* out, const int size) {
+extern "C" void template_kernel(const int* in, int* out, const int size) {
 #pragma HLS INTERFACE m_axi port=in
 #pragma HLS INTERFACE m_axi port=out
 #pragma HLS INTERFACE s_axilite port=size
